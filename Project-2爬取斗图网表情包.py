@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time : 2021/4/21 20:19
 # @Author : why
-# @File : 爬取斗图网表情包.py
+# @File : P2-爬取斗图网表情包.py
 # @Software: PyCharm
 import requests
 from lxml import etree
