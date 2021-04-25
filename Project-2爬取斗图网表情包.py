@@ -29,11 +29,11 @@ def get_pic_element():
 
 
 def download_pic(p_name, p_link, p_type):
-    '''
+    """
       :url 表情包的url,
       :pic_name 表情包的名字,
       :suffix 表情包文件的后缀
-    '''
+    """
     print(f'downloading {p_link}')
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
