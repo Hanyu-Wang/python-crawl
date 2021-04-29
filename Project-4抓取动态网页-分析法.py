@@ -4,7 +4,9 @@
 # @Author : why
 # @File : P4-抓取动态网页-1.py
 # @Software: PyCharm
-
+"""
+获取异步社区网站的书籍信息
+"""
 import requests
 
 
