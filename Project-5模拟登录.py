@@ -17,8 +17,8 @@ tujian_url = 'http://www.ttshitu.com/'
 # 把图鉴网给的python库封装成一个类
 class tujian:
     def __init__(self, typeid=3):
-        self.uname = 'dongtiandeyu'
-        self.pwd = 'why123456'
+        self.uname = 'xxx'
+        self.pwd = 'xxx'
         self.typeid = typeid
 
     def get_code(self, img_path):
