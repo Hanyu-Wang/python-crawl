@@ -51,8 +51,8 @@ data = {
                    '/WqkZQocRvh9KTGKj5ENchtLyPdENydaArB+F+2g0PZS5JfiNgqLec643/c=',
     '__VIEWSTATEGENERATOR': 'C93BE1AE',
     'from': '',
-    'email': '75758347@qq.com',
-    'pwd': 'why123.00',
+    'email': 'yyy',
+    'pwd': 'yyy',
     'code': captcha,
     'denglu': '登录'
 }
