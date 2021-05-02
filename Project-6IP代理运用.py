@@ -1,63 +1,48 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time : 2021/4/29 20:29
+# @Time : 2021/5/2 20:53
 # @Author : why
-# @File : Project-5模拟登录.py
+# @File : P6-代理IP-2.py
 # @Software: PyCharm
-import base64
-import json
+import random
 import requests
 
-tujian_url = 'http://www.ttshitu.com/'
+
+class HSpider:
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/89.0.4389.114 Safari/537.36',
+    }
+    ip_pool = ''
+
+    @property
+    def proxy(self):
+        ip = requests.get(url=self.ip_pool).text.strip()
+        print(ip)
+        return {'http': f'https://{ip}'}
+
+    def __init__(self, n):
+        self.n = n
+
+    def get_links(self):
+        urls = []
+        for i in range(1, self.n + 1):
+            urls.append(f'https://db.yaozh.com/hmap/{i}.html')
+        random.shuffle(urls)
+        return urls
+
+    def get_data(self, url):
+        res = requests.get(url=url, headers=self.headers, proxies=self.proxy, allow_redirects=False)
+        print('当前请求的链接：', res.url)
+        print('当前返回的响应码：', res.status_code)
+        print('================================================')
+
+    def run(self):
+        links = self.get_links()
+        for h_url in links:
+            self.get_data(h_url)
 
 
-# 把图鉴网给的python库封装成一个类
-class tujian:
-    def __init__(self, typeid=3):
-        self.uname = 'dongtiandeyu'
-        self.pwd = 'why123456'
-        self.typeid = typeid
-
-    def get_code(self, img_path):
-        with open(img_path, 'rb') as f:
-            base64_data = base64.b64encode(f.read())
-            b64 = base64_data.decode()
-        data = {"username": self.uname, "password": self.pwd, "typeid": self.typeid, "image": b64}
-        result = json.loads(requests.post("http://api.ttshitu.com/predict", json=data).text)
-        if result['success']:
-            return result["data"]["result"]
-        else:
-            return result["message"]
-
-
-# 实例化一个session网页会话
-r = requests.session()
-headers = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                  'Chrome/89.0.4389.114 Safari/537.36',
-}
-# 先获得验证码图片
-response = r.get('https://so.gushiwen.cn/RandCode.ashx', headers=headers)
-
-with open('验证码.png', 'wb')as f:
-    f.write(response.content)
-# 把获取到的验证码图片调用图鉴网封装的类实现自动识别
-captcha = tujian().get_code(r'验证码.png')
-data = {
-    '__VIEWSTATE': 'XH67ib6mjeNG03E080ON6QoiYh8A2GUCx4SsA0tcB2RRPqt10hLwnQR204kbTI+V'
-                   '/WqkZQocRvh9KTGKj5ENchtLyPdENydaArB+F+2g0PZS5JfiNgqLec643/c=',
-    '__VIEWSTATEGENERATOR': 'C93BE1AE',
-    'from': '',
-    'email': '75758347@qq.com',
-    'pwd': 'why123.00',
-    'code': captcha,
-    'denglu': '登录'
-}
-print(f'识别验证码为： {captcha}')
-# 向网站服务器发起post请求
-r = r.post('https://so.gushiwen.cn/user/login.aspx', headers=headers, data=data)
-
-# 获得登录后的页面
-with open('index.html', 'w', encoding="utf-8")as fp:
-    fp.write(r.text)
-    print('成功登录，并获取网页！')
+if __name__ == '__main__':
+    spider = HSpider(10)
+    spider.run()
