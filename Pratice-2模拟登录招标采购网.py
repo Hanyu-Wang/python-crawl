@@ -59,8 +59,8 @@ if __name__ == '__main__':
     im = Image.open('screenshot.png')
     im = im.crop((x, y, right, bottom))
     im.save('code.png')
-    driver.find_element_by_id('uname').send_keys('17625528946')
-    driver.find_element_by_id('pwd').send_keys('719367')
+    driver.find_element_by_id('uname').send_keys('xxx')
+    driver.find_element_by_id('pwd').send_keys('xxx')
     captcha = Tujian().get_code(r'code.png')
     driver.find_element_by_id('yzm').send_keys(captcha)
     # 再把浏览器调整为原有大小，要不然找不到submit元素
